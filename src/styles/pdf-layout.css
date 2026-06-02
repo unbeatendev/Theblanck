@@ -49,21 +49,20 @@
   border-left-color: rgba(255, 255, 255, 0.1) !important;
 }
 
-/* Keep cover copy in the left column — left of the 60% divider line */
+/* Left column — aligns with the 60% divider (62% of inner area ≈ line position minus padding) */
 .proposal-pdf-view .cover-body {
-  max-width: calc(60% - 6mm) !important;
+  max-width: min(680px, 62%) !important;
   box-sizing: border-box !important;
 }
 
 .proposal-pdf-view .cover-title {
   max-width: 100% !important;
-  font-size: 24pt !important;
+  font-size: 30pt !important;
   line-height: 1.05 !important;
-  overflow-wrap: break-word !important;
 }
 
 .proposal-pdf-view .cover-sub {
-  max-width: 56% !important;
+  max-width: 100% !important;
 }
 
 /* Padding repeats at the top of every page after a break (box-decoration-break) */
@@ -203,10 +202,9 @@
   }
 
   .cover-title {
-    font-size: 24pt !important;
+    font-size: 30pt !important;
     max-width: 100% !important;
     line-height: 1.05 !important;
-    overflow-wrap: break-word !important;
   }
 
   .cover-title em {
@@ -214,12 +212,12 @@
   }
 
   .cover-body {
-    max-width: calc(60% - 6mm) !important;
+    max-width: min(680px, 62%) !important;
     box-sizing: border-box !important;
   }
 
   .cover-sub {
-    max-width: 56% !important;
+    max-width: 100% !important;
     font-size: 10pt !important;
   }
 

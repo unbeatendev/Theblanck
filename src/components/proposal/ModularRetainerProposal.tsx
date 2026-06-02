@@ -24,8 +24,7 @@ export function ModularRetainerProposalView({ data }: Props) {
           <h1 className="cover-title">
             {data.cover.titleLine1}
             <br />
-            {data.cover.titleLine2}
-            <br />
+            {data.cover.titleLine2}{" "}
             <em>{data.cover.titleEmphasis}</em>
           </h1>
           <p className="cover-sub">{data.cover.subtitle}</p>
