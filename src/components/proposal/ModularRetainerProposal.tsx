@@ -8,7 +8,7 @@ type Props = { data: Proposal };
 export function ModularRetainerProposalView({ data }: Props) {
   return (
     <>
-      <EditableRegion id="cover" label="Cover" as="section" className="cover">
+      <EditableRegion id="cover" label="Cover" as="section" className="cover pdf-page-after">
         <div className="cover-top">
           <div className="logo-wrap">
             <Logo />
@@ -45,7 +45,7 @@ export function ModularRetainerProposalView({ data }: Props) {
           <h2 className="section-title">{data.overview.title}</h2>
           <p className="section-intro">{data.overview.intro}</p>
 
-          <table className="overview-table">
+          <table className="overview-table pdf-keep-together">
             <thead>
               <tr>
                 <th>Service</th>
@@ -79,7 +79,7 @@ export function ModularRetainerProposalView({ data }: Props) {
             <p className="section-intro">{lane.intro}</p>
 
             {lane.price && (
-              <div className="price-block">
+              <div className="price-block pdf-keep-together">
                 <span className="price-amount">{lane.price.amount}</span>
                 <span className="price-period">{lane.price.period}</span>
               </div>
@@ -91,7 +91,7 @@ export function ModularRetainerProposalView({ data }: Props) {
             <IncludesList items={lane.includes} />
 
             {lane.capacity && (
-              <div className="capacity-block">
+              <div className="capacity-block pdf-keep-together">
                 <div className="includes-label">{lane.capacity.label}</div>
                 <table className="capacity-table">
                   <thead>
@@ -112,7 +112,7 @@ export function ModularRetainerProposalView({ data }: Props) {
               </div>
             )}
 
-            {lane.note && <div className="note">{lane.note}</div>}
+            {lane.note && <div className="note pdf-keep-together">{lane.note}</div>}
           </EditableRegion>
         ))}
 
@@ -121,7 +121,7 @@ export function ModularRetainerProposalView({ data }: Props) {
           <h2 className="section-title">{data.recommended.title}</h2>
           <p className="section-intro">{data.recommended.intro}</p>
 
-          <div className="pricing-summary">
+          <div className="pricing-summary pdf-keep-together">
             {data.recommended.rows.map((row) => (
               <div
                 key={row.label}
@@ -154,7 +154,7 @@ export function ModularRetainerProposalView({ data }: Props) {
           <h2 className="section-title">{data.workflow.title}</h2>
           <p className="section-intro">{data.workflow.intro}</p>
 
-          <div className="workflow">
+          <div className="workflow pdf-keep-together">
             {data.workflow.steps.map((step) => (
               <div className="workflow-step" key={step.title}>
                 <div className="workflow-step-num">{step.num}</div>
@@ -176,7 +176,7 @@ export function ModularRetainerProposalView({ data }: Props) {
           <div className="section-index">09 &nbsp;/&nbsp; Commercial Terms</div>
           <h2 className="section-title">{data.terms.title}</h2>
 
-          <div className="terms-grid">
+          <div className="terms-grid pdf-keep-together">
             {data.terms.rows.map((term) => (
               <div className="term-row" key={term.label}>
                 <span className="term-label">{term.label}</span>
@@ -187,7 +187,7 @@ export function ModularRetainerProposalView({ data }: Props) {
         </EditableRegion>
       </main>
 
-      <section className="close-section">
+      <section className="close-section pdf-page-before">
         <div>
           <h2 className="close-heading">
             Ready to get

@@ -1,7 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { ExportPdfButton } from "@/components/proposal/ExportPdfButton";
+import { DownloadPdfButton } from "@/components/proposal/DownloadPdfButton";
+import { PrintButton } from "@/components/proposal/PrintButton";
 import { useProposalEdit } from "@/context/ProposalEditContext";
 import {
   clearDraft,
@@ -53,9 +54,8 @@ export function EditToolbar() {
         )}
       </div>
       <div className="editor-toolbar-actions">
-        <ExportPdfButton
-          filename={`theblanck-${slug}-${data.clientName.replace(/\s+/g, "-")}`}
-        />
+        <DownloadPdfButton slug={slug} className="editor-toolbar-print" />
+        <PrintButton className="editor-toolbar-print" />
         <button type="button" className="editor-btn" onClick={handleSave}>
           Save draft
         </button>

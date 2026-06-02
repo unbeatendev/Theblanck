@@ -348,21 +348,42 @@
   opacity: 0.85;
 }
 
-.export-pdf-error {
+.pdf-download-error {
   position: fixed;
   bottom: 72px;
   right: 24px;
   z-index: 81;
-  max-width: 280px;
+  max-width: 300px;
   padding: 10px 14px;
   font-size: 12px;
-  line-height: 1.4;
+  line-height: 1.45;
   background: #fff5f5;
   border: 1px solid #e8c4c4;
   color: #5a3030;
 }
 
-.editor-toolbar .export-pdf-btn {
+.print-hint {
+  position: fixed;
+  bottom: 28px;
+  left: 24px;
+  z-index: 79;
+  font-size: 12px;
+  color: var(--grey-400);
+  margin: 0;
+}
+
+.print-hint kbd {
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  padding: 2px 5px;
+  border: 1px solid var(--grey-200);
+  border-radius: 3px;
+  background: var(--grey-100);
+  color: var(--grey-600);
+}
+
+.editor-toolbar .export-pdf-btn,
+.editor-toolbar-print {
   box-shadow: none;
   padding: 8px 14px;
   font-size: 12px;
@@ -371,7 +392,8 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.editor-toolbar .export-pdf-btn:hover:not(:disabled) {
+.editor-toolbar .export-pdf-btn:hover,
+.editor-toolbar-print:hover {
   background: rgba(255, 255, 255, 0.08);
 }
 

@@ -1,0 +1,366 @@
+/* ─── PDF layout (Download PDF + /p/[slug]/pdf) ─────────
+   Tunable via src/lib/pdf-config.ts
+   @page top/bottom: injected in ProposalPdfView (pdfPageCss)
+   Side margins: .doc padding-left/right
+──────────────────────────────────────────────────────── */
+
+.pdf-page-after {
+  break-after: page;
+  page-break-after: always;
+}
+
+.pdf-page-before {
+  break-before: page;
+  page-break-before: always;
+}
+
+.pdf-keep-together {
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+
+/* ─── PDF view base (screen preview + print) ────────── */
+.proposal-pdf-view {
+  background: #fafaf8;
+  width: 100%;
+  max-width: var(--pdf-page-width, 210mm);
+  margin: 0 auto;
+  overflow: visible !important;
+  box-sizing: border-box;
+}
+
+.proposal-pdf-view .cover {
+  page: cover;
+  width: 100% !important;
+  min-height: var(--pdf-page-height, 297mm) !important;
+  height: var(--pdf-page-height, 297mm) !important;
+  max-width: none !important;
+  padding: var(--pdf-cover-padding, 20mm) !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  background: #0a0a0a !important;
+  color: #fafaf8 !important;
+  box-sizing: border-box !important;
+  display: grid !important;
+  grid-template-rows: auto 1fr auto !important;
+}
+
+.proposal-pdf-view .cover::before {
+  border-left-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Keep cover copy in the left column — left of the 60% divider line */
+.proposal-pdf-view .cover-body {
+  max-width: calc(60% - 6mm) !important;
+  box-sizing: border-box !important;
+}
+
+.proposal-pdf-view .cover-title {
+  max-width: 100% !important;
+  font-size: 24pt !important;
+  line-height: 1.05 !important;
+  overflow-wrap: break-word !important;
+}
+
+.proposal-pdf-view .cover-sub {
+  max-width: 56% !important;
+}
+
+/* Padding repeats at the top of every page after a break (box-decoration-break) */
+.proposal-pdf-view .doc {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: var(--pdf-page-margin, 14mm) !important;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  box-sizing: border-box !important;
+}
+
+.proposal-pdf-view .section-intro,
+.proposal-pdf-view .agreement-p,
+.proposal-pdf-view .section-title {
+  max-width: 100% !important;
+}
+
+.proposal-pdf-view .agreement-preamble-section {
+  margin-top: 0 !important;
+}
+
+.proposal-pdf-view .section {
+  margin-top: 8mm !important;
+  padding-top: 8mm !important;
+}
+
+.proposal-pdf-view .section:first-child {
+  margin-top: 0 !important;
+}
+
+.proposal-pdf-view .overview-table,
+.proposal-pdf-view .capacity-table,
+.proposal-pdf-view .agreement-table,
+.proposal-pdf-view .terms-grid,
+.proposal-pdf-view .pricing-summary,
+.proposal-pdf-view .workflow,
+.proposal-pdf-view .signatures-grid {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.proposal-pdf-view .overview-table {
+  table-layout: fixed;
+}
+
+.proposal-pdf-view .overview-table td,
+.proposal-pdf-view .overview-table th,
+.proposal-pdf-view .capacity-table td,
+.proposal-pdf-view .agreement-table td {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.proposal-pdf-view .close-section {
+  page: close;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: var(--pdf-close-padding, 20mm) !important;
+  box-sizing: border-box !important;
+  background: #0a0a0a !important;
+  color: #fafaf8 !important;
+}
+
+/* ─── Print media (Puppeteer + Ctrl+P) ──────────────── */
+@media print {
+  html {
+    font-size: 10.5pt;
+  }
+
+  html,
+  body {
+    background: #fafaf8 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    box-shadow: none !important;
+  }
+
+  .no-print,
+  .proposal-actions,
+  .draft-banner,
+  .editor-toolbar,
+  .editor-panel,
+  .editable-region-badge,
+  .print-hint,
+  .pdf-download-error {
+    display: none !important;
+  }
+
+  .proposal-pdf-view,
+  .proposal-page,
+  .proposal-print-root {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  .proposal-pdf-view .cover,
+  .cover {
+    page: cover;
+    width: 100% !important;
+    min-height: var(--pdf-page-height, 297mm) !important;
+    height: var(--pdf-page-height, 297mm) !important;
+    max-width: none !important;
+    padding: var(--pdf-cover-padding, 20mm) !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    background: #0a0a0a !important;
+    color: #fafaf8 !important;
+    box-sizing: border-box !important;
+    display: grid !important;
+    grid-template-rows: auto 1fr auto !important;
+  }
+
+  .cover::before {
+    border-left-color: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  .logo-wrap svg path {
+    fill: #ffffff !important;
+  }
+
+  .cover-title {
+    font-size: 24pt !important;
+    max-width: 100% !important;
+    line-height: 1.05 !important;
+    overflow-wrap: break-word !important;
+  }
+
+  .cover-title em {
+    color: rgba(255, 255, 255, 0.45) !important;
+  }
+
+  .cover-body {
+    max-width: calc(60% - 6mm) !important;
+    box-sizing: border-box !important;
+  }
+
+  .cover-sub {
+    max-width: 56% !important;
+    font-size: 10pt !important;
+  }
+
+  .doc {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: var(--pdf-page-margin, 14mm) !important;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    box-sizing: border-box !important;
+  }
+
+  .section {
+    margin-top: 5mm !important;
+    padding-top: 5mm !important;
+    break-inside: auto;
+    page-break-inside: auto;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .section:first-child {
+    margin-top: 0 !important;
+  }
+
+  .agreement-preamble-section {
+    margin-top: 0 !important;
+    border-top: none !important;
+  }
+
+  .section-intro,
+  .agreement-p,
+  .section-title {
+    max-width: 100% !important;
+  }
+
+  .section-index,
+  .section-title {
+    break-after: avoid-page;
+    page-break-after: avoid;
+  }
+
+  .section-title {
+    font-size: 19pt !important;
+  }
+
+  .section-intro,
+  .agreement-p {
+    font-size: 10pt !important;
+    orphans: 3;
+    widows: 3;
+  }
+
+  .overview-table,
+  .capacity-table,
+  .agreement-table {
+    width: 100% !important;
+    max-width: 100% !important;
+    font-size: 9pt !important;
+    table-layout: fixed;
+  }
+
+  .overview-table td,
+  .overview-table th {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    padding: 8px 6px !important;
+  }
+
+  .overview-table thead th {
+    background: #0a0a0a !important;
+    color: rgba(255, 255, 255, 0.55) !important;
+  }
+
+  .pricing-row.total {
+    background: #0a0a0a !important;
+    color: #fafaf8 !important;
+  }
+
+  .pricing-row.subtotal {
+    background: #f2f1ee !important;
+  }
+
+  .note {
+    background: #f2f1ee !important;
+    border-left: 2px solid #0a0a0a !important;
+  }
+
+  .signatures-grid {
+    grid-template-columns: 1fr 1fr !important;
+    width: 100% !important;
+  }
+
+  .signature-card {
+    min-height: 0 !important;
+  }
+
+  .workflow {
+    grid-template-columns: 1fr 1fr !important;
+    width: 100% !important;
+  }
+
+  .workflow-step,
+  .pricing-row,
+  .term-row {
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  .proposal-pdf-view .close-section,
+  .close-section {
+    page: close;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: var(--pdf-close-padding, 20mm) !important;
+    background: #0a0a0a !important;
+    color: #fafaf8 !important;
+    box-sizing: border-box !important;
+    grid-template-columns: 1fr auto !important;
+  }
+
+  .close-heading em {
+    color: rgba(255, 255, 255, 0.4) !important;
+  }
+
+  .close-body {
+    color: rgba(255, 255, 255, 0.45) !important;
+  }
+
+  .close-contact a {
+    color: #fafaf8 !important;
+  }
+
+  a[href]::after {
+    content: none !important;
+  }
+
+  .editable-region {
+    outline: none !important;
+  }
+}

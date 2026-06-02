@@ -39,6 +39,15 @@ export function ProposalPageClient({ slug, initial }: Props) {
     }
   }, [slug]);
 
+  useEffect(() => {
+    const title = `theblanck × ${data.clientName}`;
+    const onBeforePrint = () => {
+      document.title = title;
+    };
+    window.addEventListener("beforeprint", onBeforePrint);
+    return () => window.removeEventListener("beforeprint", onBeforePrint);
+  }, [data.clientName]);
+
   const showDraftBanner =
     mounted && draftLoaded && !editMode && checkHasDraft(slug);
 
@@ -54,7 +63,7 @@ export function ProposalPageClient({ slug, initial }: Props) {
       )}
 
       {!editMode && (
-        <ProposalActions slug={slug} clientName={data.clientName} />
+        <ProposalActions slug={slug} />
       )}
 
       <div id="proposal-print-root" className="proposal-print-root">

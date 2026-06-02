@@ -14,7 +14,7 @@ function SectionBlocks({ blocks }: { blocks: SectionBlock[] }) {
         switch (block.type) {
           case "paragraphs":
             return (
-              <div key={i} className="agreement-paragraphs">
+              <div key={i} className="agreement-paragraphs pdf-keep-together">
                 {block.items.map((p) => (
                   <p key={p} className="section-intro agreement-p">
                     {p}
@@ -24,7 +24,7 @@ function SectionBlocks({ blocks }: { blocks: SectionBlock[] }) {
             );
           case "list":
             return (
-              <div key={i}>
+              <div key={i} className="pdf-keep-together">
                 {block.label && (
                   <div className="includes-label">{block.label}</div>
                 )}
@@ -33,14 +33,14 @@ function SectionBlocks({ blocks }: { blocks: SectionBlock[] }) {
             );
           case "price":
             return (
-              <div key={i} className="price-block">
+              <div key={i} className="price-block pdf-keep-together">
                 <span className="price-amount">{block.amount}</span>
                 <span className="price-period">{block.period}</span>
               </div>
             );
           case "note":
             return (
-              <div key={i} className="note">
+              <div key={i} className="note pdf-keep-together">
                 {block.text}
               </div>
             );
@@ -48,11 +48,11 @@ function SectionBlocks({ blocks }: { blocks: SectionBlock[] }) {
             return (
               <table
                 key={i}
-                className={
+                className={`pdf-keep-together ${
                   block.headers.length === 3
                     ? "overview-table"
                     : "capacity-table agreement-table"
-                }
+                }`}
               >
                 <thead>
                   <tr>
@@ -74,7 +74,7 @@ function SectionBlocks({ blocks }: { blocks: SectionBlock[] }) {
             );
           case "terms":
             return (
-              <div key={i} className="terms-grid">
+              <div key={i} className="terms-grid pdf-keep-together">
                 {block.rows.map((term) => (
                   <div className="term-row" key={term.label}>
                     <span className="term-label">{term.label}</span>
@@ -85,7 +85,7 @@ function SectionBlocks({ blocks }: { blocks: SectionBlock[] }) {
             );
           case "subsection":
             return (
-              <div key={i} className="agreement-subsection">
+              <div key={i} className="agreement-subsection pdf-keep-together">
                 <h3 className="agreement-subsection-title">{block.title}</h3>
                 {block.paragraphs?.map((p) => (
                   <p key={p} className="section-intro agreement-p">
@@ -108,7 +108,7 @@ type Props = { data: Agreement };
 export function DesignServicesAgreementView({ data }: Props) {
   return (
     <>
-      <EditableRegion id="cover" label="Cover" as="section" className="cover">
+      <EditableRegion id="cover" label="Cover" as="section" className="cover pdf-page-after">
         <div className="cover-top">
           <div className="logo-wrap">
             <Logo />
@@ -174,14 +174,14 @@ export function DesignServicesAgreementView({ data }: Props) {
             Party.
           </p>
 
-          <div className="signatures-grid">
+          <div className="signatures-grid pdf-keep-together">
             <SignatureBlock roleLabel="Studio" party={data.signatures.studio} />
             <SignatureBlock roleLabel="Client" party={data.signatures.client} />
           </div>
         </EditableRegion>
       </main>
 
-      <section className="close-section">
+      <section className="close-section pdf-page-before">
         <div>
           <h2 className="close-heading">
             Ready to get

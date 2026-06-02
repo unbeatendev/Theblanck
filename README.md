@@ -36,11 +36,38 @@ Edit proposals in the browser — no code changes required for drafts.
 - **Reset** — discard draft and reload from codebase
 - **Preview** — save draft and open client view
 
-## Export PDF
+## Customize PDF layout
 
-**Export PDF** downloads a file directly (no print dialog). It uses `html2pdf.js` to render the proposal with custom page breaks, A4 sizing, and preserved dark sections.
+Edit **`src/lib/pdf-config.ts`**:
 
-Tweak export layout in `src/styles/pdf-export.css` and options in `src/lib/export-proposal-pdf.ts`.
+| Setting | What it controls |
+|---------|------------------|
+| `pageMarginMm` | Margins on content pages (default 14mm) |
+| `cover.paddingMm` | Inner padding on the full-page cover |
+| `cover.fullPage` | Cover fills entire first page (edge to edge) |
+| `content.maxWidthMm` | Max width of document body |
+| `close.paddingMm` | Close section padding |
+| `format` | `A4` or `Letter` |
+
+Styles: `src/styles/pdf-layout.css`
+
+Preview the PDF layout in browser at `/p/gale/pdf` before downloading.
+
+## Download PDF (recommended)
+
+Click **Download PDF** — the server renders the proposal with headless Chrome and returns a real PDF file:
+
+- Selectable text, proper fonts, dark backgrounds preserved
+- Smart page breaks (cover on page 1, close on its own page, tables/blocks stay intact)
+- No print dialog needed
+
+Requires Google Chrome installed locally. On deploy, set `NEXT_PUBLIC_SITE_URL` to your live domain (e.g. `https://proposals.theblanck.co`).
+
+API: `GET /api/pdf/gale` · Print view: `/p/gale/pdf`
+
+## Print (Ctrl+P)
+
+Use **Ctrl+P** / **Print / PDF** for a quick print preview. Enable **Background graphics** in the dialog.
 
 The editor is on automatically in development. For production, set `NEXT_PUBLIC_ENABLE_PROPOSAL_EDITOR=true` in `.env.local` (hide the edit UI from clients when you’re done).
 
