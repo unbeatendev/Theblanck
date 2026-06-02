@@ -1,0 +1,158 @@
+/* ─── PDF / print export ───────────────────────────────── */
+
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm 12mm;
+  }
+
+  html,
+  body {
+    background: white !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .no-print,
+  .proposal-actions,
+  .edit-fab,
+  .draft-banner,
+  .editor-toolbar,
+  .editor-panel,
+  .editable-region-badge {
+    display: none !important;
+  }
+
+  .proposal-page--editing .proposal-editor-layout {
+    display: block !important;
+  }
+
+  .proposal-page--editing .proposal-editor-canvas {
+    max-height: none !important;
+    overflow: visible !important;
+    padding-bottom: 0 !important;
+  }
+
+  .editable-region {
+    outline: none !important;
+    cursor: default !important;
+  }
+
+  .proposal-print-root {
+    display: block !important;
+  }
+
+  /* Cover */
+  .cover {
+    min-height: auto !important;
+    height: auto !important;
+    padding: 36px 40px !important;
+    page-break-after: always;
+    break-after: page;
+    overflow: visible !important;
+    background: #0a0a0a !important;
+    color: #fafaf8 !important;
+  }
+
+  .cover::before {
+    border-left-color: rgba(255, 255, 255, 0.12) !important;
+  }
+
+  .logo-wrap svg path {
+    fill: white !important;
+  }
+
+  /* Document body */
+  .doc {
+    padding: 0 40px 48px !important;
+    max-width: 100% !important;
+  }
+
+  .section {
+    page-break-inside: avoid;
+    break-inside: avoid-page;
+    margin-top: 48px !important;
+    padding-top: 48px !important;
+  }
+
+  .agreement-preamble-section {
+    margin-top: 48px !important;
+    page-break-inside: avoid;
+  }
+
+  .overview-table thead th {
+    background: #0a0a0a !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+  }
+
+  .overview-table tbody tr:hover {
+    background: transparent !important;
+  }
+
+  .pricing-row.total {
+    background: #0a0a0a !important;
+    color: #fafaf8 !important;
+  }
+
+  .pricing-row.subtotal {
+    background: #f2f1ee !important;
+  }
+
+  .workflow {
+    page-break-inside: avoid;
+  }
+
+  .workflow-step {
+    page-break-inside: avoid;
+    break-inside: avoid-page;
+  }
+
+  .signatures-grid {
+    page-break-inside: avoid;
+    break-inside: avoid-page;
+  }
+
+  .signature-card {
+    min-height: auto !important;
+  }
+
+  .signature-pad {
+    min-height: 72px !important;
+    border-color: #5a5955 !important;
+  }
+
+  .signature-field-line {
+    border-bottom-color: #5a5955 !important;
+  }
+
+  .note {
+    background: #f2f1ee !important;
+    border-left-color: #0a0a0a !important;
+  }
+
+  /* Close — optional last page */
+  .close-section {
+    page-break-before: always;
+    break-before: page;
+    margin-top: 0 !important;
+    padding: 48px 40px !important;
+    background: #0a0a0a !important;
+    color: #fafaf8 !important;
+  }
+
+  .close-heading em {
+    color: rgba(255, 255, 255, 0.4) !important;
+  }
+
+  a[href]::after {
+    content: none !important;
+  }
+}
+

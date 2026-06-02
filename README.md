@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# theblanck proposals (Next.js)
 
-## Getting Started
+Live, shareable client proposals. Same layout as the static HTML library.
 
-First, run the development server:
+## URLs
+
+| Route | Purpose |
+|-------|---------|
+| `/` | Internal index — lists all proposals |
+| `/p/travelnest` | Client-facing TravelNest proposal |
+
+Share with clients: `https://your-domain.com/p/travelnest`
+
+## Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Live editor (before deploy)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Edit proposals in the browser — no code changes required for drafts.
 
-## Learn More
+| URL | Mode |
+|-----|------|
+| `/p/gale` | View (uses saved draft if one exists) |
+| `/p/gale?edit=1` | Edit — click a section, change content in the side panel |
 
-To learn more about Next.js, take a look at the following resources:
+**Toolbar actions**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Save draft** — stores in this browser’s localStorage
+- **Export JSON** — download file to sync into `src/content/clients/` later
+- **Reset** — discard draft and reload from codebase
+- **Preview** — save draft and open client view
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Export PDF
 
-## Deploy on Vercel
+**Export PDF** downloads a file directly (no print dialog). It uses `html2pdf.js` to render the proposal with custom page breaks, A4 sizing, and preserved dark sections.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Tweak export layout in `src/styles/pdf-export.css` and options in `src/lib/export-proposal-pdf.ts`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The editor is on automatically in development. For production, set `NEXT_PUBLIC_ENABLE_PROPOSAL_EDITOR=true` in `.env.local` (hide the edit UI from clients when you’re done).
+
+**Note:** Drafts are per-browser, not synced to the server. Before deploy, export JSON or paste changes back into the client `.ts` file so Vercel serves the updated content.
+
+## Add a new client
+
+1. Copy `src/content/clients/travelnest.ts` → `src/content/clients/{slug}.ts`
+2. Update all copy, pricing, and `clientName`
+3. Register in `src/content/registry.ts`:
+
+```ts
+import acme from "@/content/clients/acme";
+
+export const proposals = {
+  [travelnest.slug]: travelnest,
+  [acme.slug]: acme,
+};
+```
+
+4. Deploy — the new page is available at `/p/{slug}`
+
+## Deploy (Vercel)
+
+1. Import the repo (or connect `web/` as root directory)
+2. Framework: Next.js
+3. Deploy
+
+Set **Root Directory** to `web` if the repo root is the parent folder.
+
+## Project structure
+
+```
+src/
+  app/
+    page.tsx              # library index
+    p/[slug]/page.tsx     # client proposals
+  components/proposal/    # shared UI
+  content/clients/        # per-client data
+  styles/proposal.css     # exact proposal styles
+```

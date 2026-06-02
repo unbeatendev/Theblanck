@@ -1,0 +1,398 @@
+/* ─── Proposal editor ─────────────────────────────────── */
+
+.proposal-page--editing .close-section {
+  margin-bottom: 0;
+}
+
+.editor-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 20px;
+  background: var(--black);
+  color: var(--white);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.editor-toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.editor-toolbar-mode {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.editor-toolbar-unsaved {
+  font-size: 12px;
+  color: #e8c468;
+}
+
+.editor-toolbar-saved {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.editor-toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.editor-btn {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 400;
+  padding: 8px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: var(--white);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.editor-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.editor-btn--ghost {
+  border-color: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.editor-btn--primary {
+  background: var(--white);
+  color: var(--black);
+  border-color: var(--white);
+}
+
+.editor-btn--primary:hover {
+  opacity: 0.85;
+}
+
+.proposal-editor-layout {
+  display: grid;
+  grid-template-columns: 1fr min(380px, 38vw);
+  min-height: calc(100vh - 49px);
+}
+
+.proposal-editor-canvas {
+  overflow: auto;
+  max-height: calc(100vh - 49px);
+}
+
+.editor-panel {
+  position: sticky;
+  top: 49px;
+  height: calc(100vh - 49px);
+  overflow-y: auto;
+  background: var(--grey-100);
+  border-left: 1px solid var(--grey-200);
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-panel--empty {
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+
+.editor-panel-placeholder {
+  font-size: 14px;
+  color: var(--grey-600);
+  text-align: center;
+  line-height: 1.6;
+  max-width: 240px;
+}
+
+.editor-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--grey-200);
+  background: var(--white);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.editor-panel-kicker {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--grey-400);
+  margin-bottom: 4px;
+}
+
+.editor-panel-title {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--black);
+}
+
+.editor-panel-close {
+  font-size: 24px;
+  line-height: 1;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--grey-400);
+  padding: 0 4px;
+}
+
+.editor-panel-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.editor-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.editor-field-label {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--grey-600);
+  font-weight: 500;
+}
+
+.editor-field-hint {
+  font-size: 11px;
+  color: var(--grey-400);
+}
+
+.editor-input {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 300;
+  padding: 10px 12px;
+  border: 1px solid var(--grey-200);
+  background: var(--white);
+  color: var(--black);
+  width: 100%;
+  resize: vertical;
+}
+
+.editor-input:focus {
+  outline: none;
+  border-color: var(--black);
+}
+
+.editor-section-heading {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--black);
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--grey-200);
+}
+
+.editor-block-card {
+  padding: 14px;
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.editor-block-type {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grey-400);
+}
+
+.editor-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.editable-region {
+  position: relative;
+  cursor: pointer;
+  transition: outline-color 0.15s, box-shadow 0.15s;
+}
+
+.editable-region:hover {
+  outline: 2px dashed var(--grey-400);
+  outline-offset: 4px;
+}
+
+.editable-region--selected {
+  outline: 2px solid var(--black);
+  outline-offset: 4px;
+}
+
+.editable-region-badge {
+  display: none;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  background: var(--black);
+  color: var(--white);
+  pointer-events: none;
+}
+
+.editable-region:hover .editable-region-badge,
+.editable-region--selected .editable-region-badge {
+  display: block;
+}
+
+.editable-region.cover .editable-region-badge {
+  color: var(--black);
+  background: var(--white);
+}
+
+.draft-banner {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 10px 16px;
+  background: #f5f0d8;
+  border-bottom: 1px solid var(--grey-200);
+  font-size: 13px;
+  color: var(--grey-600);
+}
+
+.draft-banner a {
+  color: var(--black);
+  font-weight: 500;
+}
+
+.proposal-actions {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 80;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 0;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.export-pdf-btn,
+.proposal-action-btn {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 400;
+  padding: 12px 18px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  flex: 0 0 auto;
+  width: auto;
+}
+
+.export-pdf-btn {
+  background: var(--white);
+  color: var(--black);
+  border: 1px solid var(--grey-200);
+  border-right: none;
+}
+
+.export-pdf-btn:hover:not(:disabled) {
+  background: var(--grey-100);
+}
+
+.export-pdf-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.proposal-action-btn {
+  background: var(--black);
+  color: var(--white);
+}
+
+.proposal-action-btn:hover {
+  opacity: 0.85;
+}
+
+.export-pdf-error {
+  position: fixed;
+  bottom: 72px;
+  right: 24px;
+  z-index: 81;
+  max-width: 280px;
+  padding: 10px 14px;
+  font-size: 12px;
+  line-height: 1.4;
+  background: #fff5f5;
+  border: 1px solid #e8c4c4;
+  color: #5a3030;
+}
+
+.editor-toolbar .export-pdf-btn {
+  box-shadow: none;
+  padding: 8px 14px;
+  font-size: 12px;
+  background: transparent;
+  color: var(--white);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.editor-toolbar .export-pdf-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 900px) {
+  .proposal-editor-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .editor-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: auto;
+    height: min(50vh, 420px);
+    border-left: none;
+    border-top: 1px solid var(--grey-200);
+  }
+
+  .proposal-editor-canvas {
+    max-height: none;
+    padding-bottom: min(50vh, 420px);
+  }
+}
