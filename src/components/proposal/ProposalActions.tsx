@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { DownloadPdfButton } from "./DownloadPdfButton";
 import { PrintButton } from "./PrintButton";
-import { isEditorEnabled } from "@/lib/proposal-draft";
 
 type Props = {
   slug: string;
@@ -11,8 +10,6 @@ type Props = {
 };
 
 export function ProposalActions({ slug, showEdit = true }: Props) {
-  const editorOn = isEditorEnabled() && showEdit;
-
   return (
     <>
       <p className="print-hint no-print">
@@ -22,7 +19,7 @@ export function ProposalActions({ slug, showEdit = true }: Props) {
       <div className="proposal-actions no-print">
         <DownloadPdfButton slug={slug} />
         <PrintButton />
-        {editorOn && (
+        {showEdit && (
           <Link href={`/p/${slug}?edit=1`} className="proposal-action-btn">
             Edit
           </Link>

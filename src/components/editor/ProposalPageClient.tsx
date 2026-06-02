@@ -11,7 +11,6 @@ import { EditToolbar } from "./EditToolbar";
 import { SectionEditPanel } from "./SectionEditPanel";
 import {
   hasDraft as checkHasDraft,
-  isEditorEnabled,
   loadDraft,
 } from "@/lib/proposal-draft";
 
@@ -23,8 +22,7 @@ type Props = {
 export function ProposalPageClient({ slug, initial }: Props) {
   const searchParams = useSearchParams();
   const editParam = searchParams.get("edit") === "1";
-  const editorAllowed = isEditorEnabled();
-  const editMode = editorAllowed && editParam;
+  const editMode = editParam;
 
   const [mounted, setMounted] = useState(false);
   const [data, setData] = useState<ProposalDocument>(initial);
@@ -56,9 +54,7 @@ export function ProposalPageClient({ slug, initial }: Props) {
       {showDraftBanner && (
         <div className="draft-banner no-print">
           <span>Viewing saved draft (not yet in codebase)</span>
-          {editorAllowed && (
-            <Link href={`/p/${slug}?edit=1`}>Continue editing</Link>
-          )}
+          <Link href={`/p/${slug}?edit=1`}>Continue editing</Link>
         </div>
       )}
 

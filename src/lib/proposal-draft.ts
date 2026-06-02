@@ -41,10 +41,3 @@ export function downloadJson(slug: string, data: ProposalDocument) {
   a.click();
   URL.revokeObjectURL(url);
 }
-
-export function isEditorEnabled() {
-  return (
-    process.env.NODE_ENV === "development" ||
-    process.env.NEXT_PUBLIC_ENABLE_PROPOSAL_EDITOR === "true"
-  );
-}
