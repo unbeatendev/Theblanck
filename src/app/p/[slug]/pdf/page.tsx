@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { ProposalPdfView } from "@/components/proposal/ProposalPdfView";
+import { ProposalPdfPageClient } from "@/components/proposal/ProposalPdfPageClient";
 import { getAllProposalSlugs, getProposal } from "@/lib/proposals";
 
 type PageProps = {
@@ -18,5 +18,5 @@ export default async function ProposalPdfPage({ params }: PageProps) {
     notFound();
   }
 
-  return <ProposalPdfView data={proposal} />;
+  return <ProposalPdfPageClient slug={slug} initial={proposal} />;
 }

@@ -1,13 +1,17 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import type { ProposalDocument } from "@/types/proposal";
+import { loadDraft } from "@/lib/proposal-draft";
 
 type Props = {
   slug: string;
+  /** Current in-memory content (edit mode). Falls back to saved browser draft. */
+  data?: ProposalDocument;
   className?: string;
 };
 
-export function DownloadPdfButton({ slug, className = "" }: Props) {
+export function DownloadPdfButton({ slug, data, className = "" }: Props) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -16,7 +20,13 @@ export function DownloadPdfButton({ slug, className = "" }: Props) {
     setError(null);
 
     try {
-      const res = await fetch(`/api/pdf/${slug}`);
+      const proposalDocument = data ?? loadDraft(slug) ?? undefined;
+      const res = await fetch(`/api/pdf/${slug}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(proposalDocument ? { document: proposalDocument } : {}),
+      });
+
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
         throw new Error(
@@ -26,7 +36,7 @@ export function DownloadPdfButton({ slug, className = "" }: Props) {
 
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
-      const anchor = document.createElement("a");
+      const anchor = window.document.createElement("a");
       anchor.href = url;
       anchor.download = `theblanck-${slug}.pdf`;
       anchor.click();
@@ -36,7 +46,7 @@ export function DownloadPdfButton({ slug, className = "" }: Props) {
     } finally {
       setBusy(false);
     }
-  }, [slug]);
+  }, [slug, data]);
 
   return (
     <>

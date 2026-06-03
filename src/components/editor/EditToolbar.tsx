@@ -54,7 +54,7 @@ export function EditToolbar() {
         )}
       </div>
       <div className="editor-toolbar-actions">
-        <DownloadPdfButton slug={slug} className="editor-toolbar-print" />
+        <DownloadPdfButton slug={slug} data={data} className="editor-toolbar-print" />
         <PrintButton className="editor-toolbar-print" />
         <button type="button" className="editor-btn" onClick={handleSave}>
           Save draft

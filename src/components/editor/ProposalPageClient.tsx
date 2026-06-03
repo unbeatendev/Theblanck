@@ -59,7 +59,7 @@ export function ProposalPageClient({ slug, initial }: Props) {
       )}
 
       {!editMode && (
-        <ProposalActions slug={slug} />
+        <ProposalActions slug={slug} data={data} />
       )}
 
       <div id="proposal-print-root" className="proposal-print-root">

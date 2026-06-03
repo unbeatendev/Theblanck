@@ -1,9 +1,15 @@
 import chromium from "@sparticuz/chromium-min";
 import puppeteer, { type Browser } from "puppeteer-core";
+import type { ProposalDocument } from "@/types/proposal";
+import { draftKey } from "./proposal-draft";
 import { pdfConfig, type PdfFormat } from "./pdf-config";
 
 export type PdfOptions = {
   format?: PdfFormat;
+  draft?: {
+    slug: string;
+    data: ProposalDocument;
+  };
 };
 
 /** Sparticuz pack matched to puppeteer-core@24.x / chromium-min@133 */
@@ -34,6 +40,7 @@ export async function generateProposalPdf(
   options: PdfOptions = {},
 ): Promise<Buffer> {
   const format = options.format ?? pdfConfig.format;
+  const { draft } = options;
 
   const browser = await launchBrowser();
 
@@ -42,11 +49,24 @@ export async function generateProposalPdf(
     await page.setViewport(VIEWPORT);
     await page.emulateMediaType("print");
 
+    if (draft) {
+      const key = draftKey(draft.slug);
+      const json = JSON.stringify(draft.data);
+      await page.evaluateOnNewDocument(
+        (storageKey, storageValue) => {
+          localStorage.setItem(storageKey, storageValue);
+        },
+        key,
+        json,
+      );
+    }
+
     await page.goto(pageUrl, {
       waitUntil: "networkidle0",
       timeout: 60_000,
     });
 
+    await page.waitForSelector('[data-pdf-ready="true"]', { timeout: 15_000 });
     await page.waitForSelector(".proposal-pdf-view", { timeout: 15_000 });
     await page.evaluateHandle(() => document.fonts.ready);
 
