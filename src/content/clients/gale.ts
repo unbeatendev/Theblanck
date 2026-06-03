@@ -15,7 +15,7 @@ const gale: DesignServicesAgreement = {
     titleLine2: "built for",
     titleEmphasis: "Gale.",
     subtitle:
-      "A month-to-month design retainer covering brand, web, product, and marketing — with structured terms for funding accommodation and separate Framer development.",
+      "A month-to-month design retainer covering brand, web, product, and marketing — with structured terms for funding accommodation and Framer implementation within scope.",
   },
   preamble:
     'This Design Services Agreement ("Agreement") is entered into as of 4 June 2026 by and between theblanck, with its principal place of business at Al Raha, Abu Dhabi ("Studio"), and Gale, with its principal place of business in the USA ("Client"). The Studio and the Client may be referred to individually as a "Party" and collectively as the "Parties."',
@@ -70,14 +70,14 @@ const gale: DesignServicesAgreement = {
           type: "subsection",
           title: "Funding accommodation",
           paragraphs: [
-            "Until a Funding Event occurs, the Client shall pay USD $4,000 per month. The unpaid portion of USD $2,500 per month shall accrue as a deferred payment obligation owed to the Studio. Deferred amounts shall be tracked monthly and remain payable under this Agreement.",
+            "Until a Qualified Financing Event occurs, the Client shall pay USD $4,000 per month. The unpaid portion of USD $2,500 per month shall accrue as a deferred payment obligation owed to the Studio. Deferred amounts shall be tracked monthly and remain payable under this Agreement.",
           ],
         },
         {
           type: "subsection",
-          title: "Definition of Funding Event",
+          title: "Qualified Financing Event",
           paragraphs: [
-            'A "Funding Event" means the completion of any equity financing, venture capital investment, seed round, angel investment, SAFE, convertible note financing, grant funding, acquisition financing, or any other capital raise resulting in the Client receiving external funding.',
+            'A "Qualified Financing Event" means the closing of one or more equity financing transactions resulting in aggregate gross proceeds to the Client of at least USD $750,000, including but not limited to seed rounds, pre-seed rounds, venture capital financings, SAFEs, convertible notes, or similar investment transactions.',
           ],
         },
         {
@@ -85,9 +85,9 @@ const gale: DesignServicesAgreement = {
           title: "Payment upon funding",
           list: [
             "The Client shall immediately begin paying the full Monthly Retainer of USD $6,500 per month going forward.",
-            "The Client shall notify the Studio in writing within five (5) business days of the Funding Event.",
+            "The Client shall notify the Studio in writing within five (5) business days of the Qualified Financing Event.",
             "All accrued deferred balances shall become immediately due and payable.",
-            "The Client shall pay all outstanding deferred balances within thirty (30) days of the Funding Event.",
+            "The Client shall pay all outstanding deferred balances within thirty (30) days of the Qualified Financing Event.",
           ],
         },
         {
@@ -132,16 +132,12 @@ const gale: DesignServicesAgreement = {
     {
       index: "05",
       label: "Framer Development",
-      title: "Implementation billed separately",
-      intro:
-        'The Monthly Retainer covers design services only and does not include Framer development or implementation. A "page" means any unique webpage requiring separate development and implementation within Framer. Framer development work shall commence only upon written approval from the Client and shall be invoiced separately from the Monthly Retainer.',
+      title: "Implementation within the retainer",
       blocks: [
         {
-          type: "table",
-          headers: ["Service", "Fee"],
-          rows: [
-            ["Homepage development", "USD $1,500"],
-            ["Additional page development", "USD $1,000 per page"],
+          type: "paragraphs",
+          items: [
+            "No separate fees shall be charged for Framer implementation performed as part of the ongoing engagement unless the Parties mutually agree in writing to a scope materially exceeding the normal retainer engagement.",
           ],
         },
       ],
@@ -241,9 +237,8 @@ const gale: DesignServicesAgreement = {
           label: "Upon termination",
           items: [
             "The Client shall pay for all services rendered through the effective termination date.",
-            "Any approved but unpaid Framer development services shall remain payable.",
             "Any accrued deferred balances under Section 3 shall survive termination.",
-            "If a Funding Event occurs after termination, all accrued deferred balances shall remain immediately payable in accordance with this Agreement.",
+            "If a Qualified Financing Event occurs after termination, all accrued deferred balances shall remain immediately payable in accordance with this Agreement.",
           ],
         },
       ],
@@ -265,12 +260,12 @@ const gale: DesignServicesAgreement = {
     {
       index: "12",
       label: "Governing Law",
-      title: "Jurisdiction",
+      title: "Governing Law",
       blocks: [
         {
           type: "paragraphs",
           items: [
-            "This Agreement shall be governed by and construed in accordance with the laws of the jurisdiction mutually agreed by the Parties in writing, without regard to conflict of law principles.",
+            "This Agreement shall be governed by and construed in accordance with the laws of the State of Delaware, without regard to its conflict of laws principles.",
           ],
         },
       ],
